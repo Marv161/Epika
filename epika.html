@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epika</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --wine-dark: #070101;
+            --wine-deep: #4a0404;
+            --wine-bright: #9b1b30;
+            --gold: #d4af37;
+            --gold-light: #f9e29d;
+            --text-light: #f8f8f8;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--wine-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            /* Cursor personalizado: Copa de vino */
+            cursor: url('https://i.ibb.co/sdjx0dC1/657261.png') 16 16, auto;
+        }
+
+        /* Asegurar que el cursor se mantenga en elementos interactivos */
+        a, button, .title-epika, .portrait-frame {
+            cursor: url('https://i.ibb.co/sdjx0dC1/657261.png') 16 16, pointer !important;
+        }
+
+        .main-container {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: 
+                linear-gradient(to bottom, rgba(7, 1, 1, 0.75), rgba(7, 1, 1, 0.98)),
+                url('https://i.ibb.co/Hfd9Jzsf/ethereal-wine-symphony-by-inkimagine-dj7fypa-pre.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 2rem;
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 10%, rgba(0,0,0,0.9) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Efecto NameGrad / NameWave con Diseño 3D */
+        .title-epika {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 7.5rem;
+            font-weight: 900;
+            letter-spacing: 0.15rem;
+            margin-bottom: 2.5rem;
+            text-transform: uppercase;
+            
+            /* Gradiente animado */
+            background: linear-gradient(
+                45deg, 
+                var(--wine-deep), 
+                var(--gold), 
+                var(--wine-bright), 
+                var(--gold-light), 
+                var(--wine-deep)
+            );
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            /* Animación y Profundidad 3D */
+            animation: nameWave 6s ease-in-out infinite, fadeInDown 1.5s ease-out;
+            transform: perspective(1000px) rotateX(20deg) rotateZ(-1deg);
+            
+            /* Extrusión 3D mediante filtros de sombra apilados */
+            filter: 
+                drop-shadow(1px 1px 0px var(--wine-deep))
+                drop-shadow(2px 2px 0px var(--wine-deep))
+                drop-shadow(3px 3px 0px var(--wine-deep))
+                drop-shadow(4px 4px 1px rgba(0,0,0,0.5))
+                drop-shadow(0 15px 25px rgba(155, 27, 48, 0.4));
+            
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .title-epika:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateZ(0deg) scale(1.03);
+            filter: 
+                drop-shadow(1px 1px 0px var(--wine-deep))
+                drop-shadow(2px 2px 0px var(--wine-deep))
+                drop-shadow(3px 3px 0px var(--wine-deep))
+                drop-shadow(0 20px 40px rgba(155, 27, 48, 0.6));
+        }
+
+        @keyframes nameWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Marco moderno y sexy con glow suave */
+        .portrait-frame {
+            position: relative;
+            padding: 3px;
+            border-radius: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.8), rgba(155, 27, 48, 0.8));
+            box-shadow: 0 0 40px rgba(155, 27, 48, 0.2), 0 20px 60px rgba(0,0,0,0.8);
+            margin-bottom: 3rem;
+            animation: scaleIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.6s ease;
+        }
+
+        .portrait-frame:hover {
+            transform: scale(1.03) translateY(-10px);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3), 0 30px 80px rgba(0,0,0,0.9);
+        }
+
+        .main-image {
+            display: block;
+            max-width: 420px;
+            width: 100%;
+            height: auto;
+            border-radius: 1px;
+            filter: contrast(108%) brightness(0.9);
+            transition: filter 0.6s ease;
+        }
+
+        .portrait-frame:hover .main-image {
+            filter: contrast(115%) brightness(1.05);
+        }
+
+        .quote-container {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.2;
+            color: #e0e0e0;
+            margin-top: 0.5rem;
+            animation: fadeInUp 1.5s ease-out 0.4s backwards;
+            max-width: 100%;
+            letter-spacing: 0.05rem;
+            white-space: nowrap;
+        }
+
+        .quote-container em {
+            font-style: italic;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .divider {
+            width: 80px;
+            height: 1px;
+            background: var(--gold);
+            margin: 2.5rem auto;
+            position: relative;
+            opacity: 0.6;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            border: 1px solid var(--gold);
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .footer-info {
+            margin-top: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            font-weight: 200;
+            opacity: 0.8;
+            animation: fadeIn 2s ease-out 0.8s backwards;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.8; }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .quote-container { font-size: 1.4rem; white-space: normal; }
+            .title-epika { font-size: 5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .title-epika { font-size: 4rem; }
+            .quote-container { font-size: 1.2rem; padding: 0 1rem; white-space: normal; }
+            .main-image { max-width: 300px; }
+            .footer-info { letter-spacing: 3px; font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vignette"></div>
+
+    <div class="main-container">
+        <header class="content">
+            <h1 class="title-epika">Epika</h1>
+            
+            <div class="portrait-frame">
+                <img src="https://i.ibb.co/xtNYWxvd/epi3.png" alt="La Dama de Epika" class="main-image">
+            </div>
+
+            <p class="quote-container">
+                "Las mujeres somos como el vino, <em>mientras mas edad mejor calidad.</em>"
+            </p>
+
+            <div class="divider"></div>
+
+            <div class="footer-info">
+                Reserva Exclusiva • Puerto Rico •
+            </div>
+        </header>
+    </div>
+
+    <!-- Detalle decorativo minimalista -->
+    <div style="position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 10; opacity: 0.4;">
+        <div style="width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent);"></div>
+    </div>
+
+</body>
+</html>
