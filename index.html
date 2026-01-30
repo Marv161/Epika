@@ -26,6 +26,9 @@
             overflow-x: hidden;
             /* Cursor personalizado: Copa de vino */
             cursor: url('https://i.ibb.co/sdjx0dC1/657261.png') 16 16, auto;
+            /* Bloqueo de selección de texto para mayor seguridad */
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         /* Asegurar que el cursor se mantenga en elementos interactivos */
@@ -148,6 +151,9 @@
             border-radius: 1px;
             filter: contrast(108%) brightness(0.9);
             transition: filter 0.6s ease;
+            /* Bloqueo de arrastre de imagen en CSS */
+            -webkit-user-drag: none;
+            pointer-events: auto;
         }
 
         .portrait-frame:hover .main-image {
@@ -241,7 +247,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" ondragstart="return false;">
 
     <div class="vignette"></div>
 
@@ -270,5 +276,45 @@
         <div style="width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent);"></div>
     </div>
 
+    <script>
+        // Medidas de seguridad adicionales
+        
+        // 1. Bloqueo de click derecho
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // 2. Bloqueo de arrastre de imágenes y selección
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.nodeName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+
+        // 3. Bloqueo de atajos de teclado para desarrolladores
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+I (Inspect), Ctrl+Shift+J (Console), Ctrl+U (View Source)
+            if (e.ctrlKey && (e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // 4. Detener el acceso a la consola si intentan forzarla
+        (function() {
+            var element = new Image();
+            Object.defineProperty(element, 'id', {
+                get: function() {
+                    // Acción opcional si se detecta apertura de consola
+                }
+            });
+            console.log(element);
+        })();
+    </script>
 </body>
 </html>
